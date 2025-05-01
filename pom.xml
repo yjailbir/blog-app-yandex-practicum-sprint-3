@@ -1,46 +1,46 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>ru.yjailbir</groupId>
-  <artifactId>blog-app-yandex-practicum-sprint-3</artifactId>
-  <version>1.0</version>
-  <name>blog-app-yandex-practicum-sprint-3 Maven Webapp</name>
+    <groupId>ru.yjailbir</groupId>
+    <artifactId>blog-app-yandex-practicum-sprint-3</artifactId>
+    <version>1.0</version>
+    <name>blog-app-yandex-practicum-sprint-3 Maven Webapp</name>
 
-  <packaging>war</packaging>
+    <packaging>war</packaging>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>21</maven.compiler.source>
-    <maven.compiler.target>21</maven.compiler.target>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+    </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-      <version>6.2.6</version>
-    </dependency>
-    <dependency>
-      <groupId>jakarta.servlet</groupId>
-      <artifactId>jakarta.servlet-api</artifactId>
-      <version>6.1.0</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.thymeleaf</groupId>
-      <artifactId>thymeleaf</artifactId>
-      <version>3.1.3.RELEASE</version>
-    </dependency>
-    <dependency>
-      <groupId>org.thymeleaf</groupId>
-      <artifactId>thymeleaf-spring6</artifactId>
-      <version>3.1.3.RELEASE</version>
-    </dependency>
-  </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>6.2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+            <version>3.1.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring6</artifactId>
+            <version>3.1.3.RELEASE</version>
+        </dependency>
+    </dependencies>
 
-  <build>
-    <finalName>blog-app-yandex-practicum-sprint-3</finalName>
-  </build>
+    <build>
+        <finalName>blog-app-yandex-practicum-sprint-3</finalName>
+    </build>
 
 </project>
