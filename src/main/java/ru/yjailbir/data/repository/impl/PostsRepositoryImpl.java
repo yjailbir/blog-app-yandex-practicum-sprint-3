@@ -30,20 +30,22 @@ public class PostsRepositoryImpl implements PostsRepository {
     @Override
     public void addPost(Post post) {
         jdbcTemplate.update(
-                "INSERT INTO posts (title, text, img_url) VALUES(?, ?, ?)",
+                "INSERT INTO posts (title, text, img_url) VALUES(?, ?, ?, ?)",
                 post.getTitle(),
                 post.getText(),
-                post.getImgUrl()
+                post.getImgUrl(),
+                post.getTags()
         );
     }
 
     @Override
     public void updatePost(Post post) {
         jdbcTemplate.update(
-                "UPDATE posts SET title = ?, text = ?, img_url = ? WHERE id = ?",
+                "UPDATE posts SET title = ?, text = ?, img_url = ?, tags = ? WHERE id = ?",
                 post.getTitle(),
                 post.getText(),
                 post.getImgUrl(),
+                post.getTags(),
                 post.getId()
         );
     }
