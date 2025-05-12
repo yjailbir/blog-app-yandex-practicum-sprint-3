@@ -20,7 +20,11 @@ public class WebAppInitializer implements WebApplicationInitializer {
         appServlet.addMapping("/");
 
         MultipartConfigElement multipartConfigElement = new MultipartConfigElement(
-                "/tmp", 5 * 1024 * 1024, 10 * 1024 * 1024, 2 * 1024 * 1024);
+                System.getProperty("java.io.tmpdir"),
+                5 * 1024 * 1024,
+                10 * 1024 * 1024,
+                2 * 1024 * 1024
+        );
         appServlet.setMultipartConfig(multipartConfigElement);
     }
 }
