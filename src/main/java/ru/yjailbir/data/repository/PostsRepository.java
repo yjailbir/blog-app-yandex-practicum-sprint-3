@@ -8,4 +8,5 @@ public interface PostsRepository {
     List<Post> getPosts(int count, int offset);
     void addPost(Post post);
     void updatePost(Post post);
+    Integer getPostsCount();
 }

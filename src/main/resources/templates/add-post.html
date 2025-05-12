@@ -2,22 +2,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Витрина товаров</title>
+    <title>Добавить пост</title>
 </head>
 
 <body>
-<!-- Вместо href ссылка на ленту постов -->
-<a href="..." style="float:right;">
+<a href="http://localhost:8080/blog_app_yandex_practicum_sprint_3_war/posts" style="float:right;">
     <b>НА ГЛАВНУЮ &cudarrr;</b>
 </a>
-<!-- Вместо action ссылка на форму добавления или редактирования поста -->
-<form method="POST" th:action="..." enctype="multipart/form-data">
+<form method="POST" th:action="@{/posts/add}" enctype="multipart/form-data" th:object="${post}">
     <table style="width:50%;margin-left:auto;margin-right:auto;">
         <tr>
             <td>
                 <h3>Название</h3>
-                <!-- Вместо text название поста для формы редактирования или пустая строка для формы добавления -->
-                <textarea rows="2" style="width: 100%;" name="title" th:text="..."></textarea>
+                <textarea rows="2" style="width: 100%;" th:field="*{title}"></textarea>
             </td>
         </tr>
         <tr>
@@ -29,21 +26,18 @@
         <tr>
             <td>
                 <h3>Теги</h3>
-                <!-- Вместо text строка с тегами поста для формы редактирования или пустая строка для формы добавления -->
-                <textarea rows="2" style="width: 100%;" name="tags" th:text="..."></textarea>
+                <textarea rows="2" style="width: 100%;" th:field="*{tags}"></textarea>
             </td>
         </tr>
         <tr>
             <td>
                 <h3>Текст</h3>
-                <!-- Вместо text текст поста для формы редактирования или пустая строка для формы добавления -->
-                <textarea rows="30" style="width: 100%;" name="text" th:text="..."></textarea>
+                <textarea rows="30" style="width: 100%;" th:field="*{text}"></textarea>
             </td>
         </tr>
         <tr>
             <td>
-            	<!-- Вместо text 'Редактировать' для формы редактирования или 'Сохранить' для формы добавления -->
-                <button style="float:right;" th:text="..."></button>
+                <button type="submit" style="float:right;" th:text="${buttonText}"></button>
             </td>
         </tr>
     </table>

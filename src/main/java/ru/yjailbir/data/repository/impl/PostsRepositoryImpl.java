@@ -30,7 +30,7 @@ public class PostsRepositoryImpl implements PostsRepository {
     @Override
     public void addPost(Post post) {
         jdbcTemplate.update(
-                "INSERT INTO posts (title, text, img_url) VALUES(?, ?, ?, ?)",
+                "INSERT INTO posts (title, text, img_url, tags) VALUES(?, ?, ?, ?)",
                 post.getTitle(),
                 post.getText(),
                 post.getImgUrl(),
@@ -48,5 +48,10 @@ public class PostsRepositoryImpl implements PostsRepository {
                 post.getTags(),
                 post.getId()
         );
+    }
+
+    @Override
+    public Integer getPostsCount() {
+        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM posts", Integer.class);
     }
 }

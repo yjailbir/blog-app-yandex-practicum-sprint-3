@@ -1,16 +1,14 @@
 package ru.yjailbir.data.model;
 
-import lombok.Builder;
 import lombok.Data;
-
-import java.util.List;
+import lombok.NoArgsConstructor;
 
 @Data
-@Builder
+@NoArgsConstructor
 public class Post {
     private int id;
     private String title;
     private String text;
     private String imgUrl;
-    private List<String> tags;
+    private String tags;
 }

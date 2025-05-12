@@ -26,4 +26,10 @@ public class PostsService {
     public List<Post> getPosts(int count, int offset) {
         return postsRepository.getPosts(count, offset);
     }
+
+    public int getPagesCount(int onePagePostsCount) {
+        Integer postsCount = postsRepository.getPostsCount();
+
+        return postsCount % onePagePostsCount == 0 ? postsCount / onePagePostsCount : postsCount / onePagePostsCount + 1;
+    }
 }
