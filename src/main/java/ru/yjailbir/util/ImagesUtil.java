@@ -6,11 +6,11 @@ import java.io.*;
 
 public class ImagesUtil {
     public static String saveImage(Resource image, String folder) {
-        String resPath = folder + File.separator + image.hashCode() + image.getFilename();
+        String resPath = image.hashCode() + image.getFilename();
 
         try (
                 InputStream in = image.getInputStream();
-                OutputStream out = new FileOutputStream(resPath)
+                OutputStream out = new FileOutputStream(folder + File.separator + resPath)
         ) {
             out.write(in.readAllBytes());
         } catch (IOException e) {

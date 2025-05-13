@@ -14,6 +14,8 @@ import ru.yjailbir.util.ImagesUtil;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/posts")
@@ -35,14 +37,30 @@ public class PostsController {
     @GetMapping
     public String getPosts(
             @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
-            @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
+            @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
             Model model
     ) {
+        List<Post> posts = postsService.getPosts(pageSize, (pageNumber - 1) * pageSize);
+        posts.forEach(post -> {
+            post.setTagList(new ArrayList<>());
+
+            List.of(post.getTags().split(" ")).forEach(postTag -> {
+                post.getTagList().add(postTag.trim());
+            });
+        });
+
+        model.addAttribute("posts", posts);
         model.addAttribute("pageSize", pageSize);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("totalPages", postsService.getPagesCount(pageSize));
 
         return "posts";
+    }
+
+    @GetMapping("/{id}")
+    public String getPost(@PathVariable int id, Model model) {
+        System.out.println("ID = " + id);
+        return "test";
     }
 
     @GetMapping("/add")
