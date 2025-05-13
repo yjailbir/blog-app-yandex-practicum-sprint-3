@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import ru.yjailbir.data.model.Post;
 import ru.yjailbir.data.repository.PostsRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -20,11 +21,35 @@ public class PostsRepositoryImpl implements PostsRepository {
 
     @Override
     public List<Post> getPosts(int count, int offset) {
-        return jdbcTemplate.query(
+        List<Post> posts = jdbcTemplate.query(
                 "SELECT * FROM posts ORDER BY id LIMIT ? OFFSET ?",
                 new BeanPropertyRowMapper<>(Post.class),
                 count, offset
         );
+
+        posts.forEach(post -> {
+            post.setTagList(new ArrayList<>());
+
+            List.of(post.getTags().split(" ")).forEach(postTag -> {
+                post.getTagList().add(postTag.trim());
+                post.setLikes(
+                        jdbcTemplate.queryForObject(
+                                "SELECT likes FROM likes WHERE post_id = ?",
+                                Integer.class,
+                                post.getId()
+                        )
+                );
+                post.setComments(
+                        jdbcTemplate.queryForObject(
+                                "SELECT COUNT(id) FROM comments WHERE post_id = ?",
+                                Integer.class,
+                                post.getId()
+                        )
+                );
+            });
+        });
+
+        return posts;
     }
 
     @Override
@@ -35,6 +60,12 @@ public class PostsRepositoryImpl implements PostsRepository {
                 post.getText(),
                 post.getImgUrl(),
                 post.getTags()
+        );
+
+        jdbcTemplate.update(
+                "INSERT INTO likes(post_id, likes) VALUES (?, ?)",
+                jdbcTemplate.queryForObject("SELECT last_value FROM posts_id_seq", Integer.class),
+                0
         );
     }
 

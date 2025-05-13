@@ -41,13 +41,6 @@ public class PostsController {
             Model model
     ) {
         List<Post> posts = postsService.getPosts(pageSize, (pageNumber - 1) * pageSize);
-        posts.forEach(post -> {
-            post.setTagList(new ArrayList<>());
-
-            List.of(post.getTags().split(" ")).forEach(postTag -> {
-                post.getTagList().add(postTag.trim());
-            });
-        });
 
         model.addAttribute("posts", posts);
         model.addAttribute("pageSize", pageSize);
@@ -58,7 +51,7 @@ public class PostsController {
     }
 
     @GetMapping("/{id}")
-    public String getPost(@PathVariable int id, Model model) {
+    public String getPost(@PathVariable("id") int id, Model model) {
         System.out.println("ID = " + id);
         return "test";
     }

@@ -14,4 +14,6 @@ public class Post {
     private String imgUrl;
     private String tags;
     private List<String> tagList;
+    private Integer likes;
+    private Integer comments;
 }

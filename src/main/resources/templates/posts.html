@@ -68,9 +68,9 @@
                 <p th:text="${post.text}"></p>
                 <p>
                     <!-- В text число лайков поста -->
-                    <span th:text="..."></span>
+                    <span th:text="${post.likes} + ' likes  '"></span>
                     <!-- В text число комментариев поста -->
-                    <span th:text="..."></span>
+                    <span th:text="${post.comments} + ' comments'"></span>
                 </p>
                 <p>
                     <!--
