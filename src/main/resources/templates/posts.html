@@ -65,7 +65,7 @@
 
                 </p>
                 <!-- В text первый абзац поста -->
-                <p th:text="${post.text}"></p>
+                <p th:text="${post.paragraphs.getFirst()}"></p>
                 <p>
                     <!-- В text число лайков поста -->
                     <span th:text="${post.likes} + ' likes  '"></span>

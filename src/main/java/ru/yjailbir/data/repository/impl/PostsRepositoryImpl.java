@@ -46,6 +46,7 @@ public class PostsRepositoryImpl implements PostsRepository {
                                 post.getId()
                         )
                 );
+                post.setParagraphs(List.of(post.getText().split("\\n")));
             });
         });
 

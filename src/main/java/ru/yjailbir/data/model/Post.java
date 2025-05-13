@@ -11,6 +11,7 @@ public class Post {
     private int id;
     private String title;
     private String text;
+    private List<String> paragraphs;
     private String imgUrl;
     private String tags;
     private List<String> tagList;
