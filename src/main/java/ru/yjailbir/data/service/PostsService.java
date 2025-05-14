@@ -1,7 +1,6 @@
 package ru.yjailbir.data.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 import ru.yjailbir.data.model.Comment;
 import ru.yjailbir.data.model.Post;
@@ -43,9 +42,7 @@ public class PostsService {
 
         List<Post> readyPosts = new ArrayList<>();
 
-        posts.forEach(post -> {
-            readyPosts.add(fillPostInfo(post));
-        });
+        posts.forEach(post -> readyPosts.add(fillPostInfo(post)));
 
         return readyPosts;
     }
@@ -60,7 +57,7 @@ public class PostsService {
         );
 
         post.setCommentsCount(
-                commentsRepository.getCommentsCountByPOstId(post.getId())
+                commentsRepository.getCommentsCountByPostId(post.getId())
         );
 
         post.setParagraphs(List.of(post.getText().split("\\n")));
@@ -92,7 +89,20 @@ public class PostsService {
     }
 
     public void deletePost(int postId) {
+        likesRepository.deleteByPostId(postId);
+        commentsRepository.deleteAllCommentsByPostId(postId);
         postsRepository.deletePostById(postId);
     }
 
+    public void commentPost(Comment comment) {
+        commentsRepository.addComment(comment);
+    }
+
+    public void deleteComment(Integer id){
+        commentsRepository.deleteByCommentId(id);
+    }
+
+    public void updateComment(Comment comment) {
+        commentsRepository.updateComment(comment);
+    }
 }

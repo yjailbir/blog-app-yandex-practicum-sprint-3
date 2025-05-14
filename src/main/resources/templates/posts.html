@@ -6,7 +6,6 @@
 </head>
 
 <body>
-    <!-- Вместо action ссылка на страницу добавления поста -->
     <form method="GET" action="http://localhost:8080/blog_app_yandex_practicum_sprint_3_war/posts/add">
         <button style="float:right;">ДОБАВИТЬ ПОСТ</button>
     </form>
@@ -31,29 +30,17 @@
                         </select>
                     </p>
                     <p>
-                    	<!--
-                    		В if true, если выбрана не первая страница.
-                    		В value номер предыдущей страницы.
-                    	-->
                         <button th:if="${pageNumber > 1}" name="pageNumber" th:value="${pageNumber - 1}">&lt;</button>
-                        <!-- В text номер текущей страницы -->
                         <span th:text="${pageNumber}"></span>
-                        <!--
-                    		В if true, если выбрана не последняя страница.
-                    		В value номер следующей страницы.
-                    	-->
                         <button th:if="${pageNumber < totalPages}" name="pageNumber" th:value="${pageNumber + 1}">&gt;</button>
                     </p>
                 </form>
             </td>
         </tr>
-        <!-- В each итерируемся по списку постов -->
         <tr th:each="post: ${posts}">
             <td style="border-bottom:thin solid;">
-            	<!-- В text название поста -->
                 <h2 th:text="${post.title}"></h2>
                 <p>
-                    <!-- В href ссылка на страницу с постом -->
                     <a th:href="@{/posts/{id}(id=${post.id})}">
                         <span th:if="${post.imgUrl != null and !#strings.isEmpty(post.imgUrl)}">
                             <img height="300" th:src="@{/images/{filename}(filename=${post.imgUrl})}" />
@@ -64,19 +51,12 @@
                     </a>
 
                 </p>
-                <!-- В text первый абзац поста -->
                 <p th:text="${post.paragraphs.getFirst()}"></p>
                 <p>
-                    <!-- В text число лайков поста -->
-                    <span th:text="${post.likes} + ' likes  '"></span>
-                    <!-- В text число комментариев поста -->
-                    <span th:text="${post.comments} + ' comments'"></span>
+                    <span th:text="${post.getLikesCount} + ' likes  '"></span>
+                    <span th:text="${post.getCommentsCount} + ' comments'"></span>
                 </p>
                 <p>
-                    <!--
-            		В each итерируемся по тегам поста
-            		В text выводим название тега поста
-            	    -->
                     <span th:each="tag : ${post.tagList}" th:text="${'#'+tag+' '}"></span>
                 </p>
             </td>

@@ -5,6 +5,10 @@ import ru.yjailbir.data.model.Comment;
 import java.util.List;
 
 public interface CommentsRepository {
-    Integer getCommentsCountByPOstId(Integer postId);
+    void addComment(Comment comment);
+    Integer getCommentsCountByPostId(Integer postId);
     List<Comment> getCommentsByPostId(Integer postId);
+    void deleteByCommentId(Integer id);
+    void deleteAllCommentsByPostId(Integer postId);
+    void updateComment(Comment comment);
 }

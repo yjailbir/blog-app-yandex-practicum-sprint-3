@@ -40,4 +40,12 @@ public class LikesRepositoryImpl implements LikesRepository {
                 0
         );
     }
+
+    @Override
+    public void deleteByPostId(Integer postId) {
+        jdbcTemplate.update(
+                "DELETE FROM likes WHERE post_id = ?",
+                postId
+        );
+    }
 }

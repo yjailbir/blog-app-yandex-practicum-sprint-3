@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ru.yjailbir.data.model.Comment;
 import ru.yjailbir.data.model.Post;
 import ru.yjailbir.data.service.PostsService;
 import ru.yjailbir.util.ImagesUtil;
@@ -18,13 +19,13 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/posts")
-public class PostsController {
+public class BlogController {
     private final PostsService postsService;
     @Value("${values.img_folder}")
     private String imgFolder;
 
     @Autowired
-    public PostsController(PostsService postsService) {
+    public BlogController(PostsService postsService) {
         this.postsService = postsService;
     }
 
@@ -51,8 +52,9 @@ public class PostsController {
 
     @GetMapping("/{id}")
     public String getPost(@PathVariable("id") int id, Model model) {
-        System.out.println("ID = " + id);
-        return "test";
+        model.addAttribute("post", postsService.getPost(id));
+
+        return "post";
     }
 
     @GetMapping("/add")
@@ -76,5 +78,59 @@ public class PostsController {
         postsService.save(post);
 
         return "redirect:/posts";
+    }
+
+    @PostMapping("/update-likes/{id}")
+    public String changeLikes(
+            @PathVariable("id") Integer id,
+            @RequestParam("like") Boolean isIncrement
+    ) {
+        postsService.changeLikes(id, isIncrement);
+
+        return "redirect:/posts/" + id;
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deletePost(@PathVariable("id") Integer id) {
+        postsService.deletePost(id);
+
+        return "redirect:/posts";
+    }
+
+    @PostMapping("/comment/{id}")
+    public String commentPost(@PathVariable("id") Integer id, @RequestParam("text") String text) {
+        Comment comment = new Comment();
+        comment.setPostId(id);
+        comment.setComment(text);
+
+        postsService.commentPost(comment);
+
+        return "redirect:/posts/" + id;
+    }
+
+    @PostMapping("/delete/comment/{postId}/{commentId}")
+    public String deleteComment(
+            @PathVariable("postId") Integer postId,
+            @PathVariable("commentId") Integer commentId
+    ) {
+        postsService.deleteComment(commentId);
+
+        return "redirect:/posts/" + postId;
+    }
+
+    @PostMapping("/update-comment/{postId}/{commentId}")
+    public String updateComment(
+            @PathVariable("postId") Integer postId,
+            @PathVariable("commentId") Integer commentId,
+            @RequestParam("text") String text
+    ) {
+        Comment comment = new Comment();
+        comment.setId(commentId);
+        comment.setPostId(postId);
+        comment.setComment(text);
+
+        postsService.updateComment(comment);
+
+        return "redirect:/posts/" + postId;
     }
 }
