@@ -9,4 +9,6 @@ public interface PostsRepository {
     void addPost(Post post);
     void updatePost(Post post);
     Integer getPostsCount();
+    Post getPostById(int id);
+    void deletePostById(int id);
 }
