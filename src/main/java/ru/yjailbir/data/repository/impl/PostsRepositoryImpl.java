@@ -4,12 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import ru.yjailbir.data.model.Comment;
 import ru.yjailbir.data.model.Post;
-import ru.yjailbir.data.repository.LikesRepository;
 import ru.yjailbir.data.repository.PostsRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -22,13 +19,21 @@ public class PostsRepositoryImpl implements PostsRepository {
     }
 
     @Override
-    public List<Post> getPosts(int count, int offset) {
-
-        return jdbcTemplate.query(
+    public List<Post> getPosts(int count, int offset, String tag) {
+        if (tag.isEmpty())
+            return jdbcTemplate.query(
                 "SELECT * FROM posts ORDER BY id LIMIT ? OFFSET ?",
                 new BeanPropertyRowMapper<>(Post.class),
                 count, offset
         );
+        else {
+            String likePattern = "%" + tag + "%";
+            return jdbcTemplate.query(
+                    "SELECT * FROM posts WHERE tags ILIKE ? ORDER BY id LIMIT ? OFFSET ?",
+                    new BeanPropertyRowMapper<>(Post.class),
+                    likePattern, count, offset
+            );
+        }
     }
 
     @Override

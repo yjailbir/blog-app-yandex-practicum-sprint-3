@@ -3,7 +3,6 @@ package ru.yjailbir.controller;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,14 +38,17 @@ public class BlogController {
     public String getPosts(
             @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
             @RequestParam(name = "pageNumber", defaultValue = "1") int pageNumber,
+            @RequestParam(name = "search", defaultValue = "") String tag,
             Model model
     ) {
-        List<Post> posts = postsService.getPosts(pageSize, (pageNumber - 1) * pageSize);
-
-        model.addAttribute("posts", posts);
+        model.addAttribute("tag", tag);
         model.addAttribute("pageSize", pageSize);
         model.addAttribute("pageNumber", pageNumber);
         model.addAttribute("totalPages", postsService.getPagesCount(pageSize));
+
+        List<Post> posts = postsService.getPosts(pageSize, (pageNumber - 1) * pageSize, tag);
+
+        model.addAttribute("posts", posts);
 
         return "posts";
     }

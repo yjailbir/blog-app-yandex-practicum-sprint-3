@@ -37,8 +37,8 @@ public class PostsService {
         postsRepository.updatePost(post);
     }
 
-    public List<Post> getPosts(int count, int offset) {
-        List<Post> posts = postsRepository.getPosts(count, offset);
+    public List<Post> getPosts(int count, int offset, String tag) {
+        List<Post> posts = postsRepository.getPosts(count, offset, tag);
 
         List<Post> readyPosts = new ArrayList<>();
 

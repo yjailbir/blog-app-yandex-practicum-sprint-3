@@ -5,7 +5,7 @@ import ru.yjailbir.data.model.Post;
 import java.util.List;
 
 public interface PostsRepository {
-    List<Post> getPosts(int count, int offset);
+    List<Post> getPosts(int count, int offset, String tag);
     void addPost(Post post);
     void updatePost(Post post);
     Integer getPostsCount();
