@@ -56,7 +56,7 @@
         <tr>
             <td>
                 <!-- Вместо action ссылка на страницу редактирования поста -->
-                <form method="GET" th:action="...">
+                <form method="GET" th:action="@{/posts/update/{id}(id=${post.id})}">
                     <button style="float:right;">РЕДАКТИРОВАТЬ ПОСТ</button>
                 </form>
             </td>

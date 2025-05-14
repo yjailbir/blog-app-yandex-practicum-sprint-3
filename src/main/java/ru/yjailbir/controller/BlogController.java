@@ -3,6 +3,7 @@ package ru.yjailbir.controller;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -80,9 +81,33 @@ public class BlogController {
         return "redirect:/posts";
     }
 
+    @GetMapping("/update/{id}")
+    public String getUpdatePostPage(@PathVariable("id") int id, Model model) {
+        model.addAttribute("buttonText", "Редактировать");
+        model.addAttribute("post", postsService.getPost(id));
+
+        return "add-post";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updatePost(
+            @PathVariable("id") int id,
+            @ModelAttribute("post") Post post,
+            @RequestParam(value = "image", required = false) MultipartFile image
+    ) {
+        if (image != null && !image.isEmpty()) {
+            String imageUrl = ImagesUtil.saveImage(image.getResource(), imgFolder);
+            post.setImgUrl(imageUrl);
+        }
+
+        postsService.update(post);
+
+        return "redirect:/posts/" + id;
+    }
+
     @PostMapping("/update-likes/{id}")
     public String changeLikes(
-            @PathVariable("id") Integer id,
+            @PathVariable("id") int id,
             @RequestParam("like") Boolean isIncrement
     ) {
         postsService.changeLikes(id, isIncrement);
@@ -91,14 +116,14 @@ public class BlogController {
     }
 
     @PostMapping("/delete/{id}")
-    public String deletePost(@PathVariable("id") Integer id) {
+    public String deletePost(@PathVariable("id") int id) {
         postsService.deletePost(id);
 
         return "redirect:/posts";
     }
 
     @PostMapping("/comment/{id}")
-    public String commentPost(@PathVariable("id") Integer id, @RequestParam("text") String text) {
+    public String commentPost(@PathVariable("id") int id, @RequestParam("text") String text) {
         Comment comment = new Comment();
         comment.setPostId(id);
         comment.setComment(text);
@@ -110,8 +135,8 @@ public class BlogController {
 
     @PostMapping("/delete/comment/{postId}/{commentId}")
     public String deleteComment(
-            @PathVariable("postId") Integer postId,
-            @PathVariable("commentId") Integer commentId
+            @PathVariable("postId") int postId,
+            @PathVariable("commentId") int commentId
     ) {
         postsService.deleteComment(commentId);
 
@@ -120,8 +145,8 @@ public class BlogController {
 
     @PostMapping("/update-comment/{postId}/{commentId}")
     public String updateComment(
-            @PathVariable("postId") Integer postId,
-            @PathVariable("commentId") Integer commentId,
+            @PathVariable("postId") int postId,
+            @PathVariable("commentId") int commentId,
             @RequestParam("text") String text
     ) {
         Comment comment = new Comment();
