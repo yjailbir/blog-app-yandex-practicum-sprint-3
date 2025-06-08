@@ -6,10 +6,10 @@
 </head>
 
 <body>
-<a href="http://localhost:8080/blog_app_yandex_practicum_sprint_3_war/posts" style="float:right;">
+<a href="http://localhost:8080/posts" style="float:right;">
     <b>НА ГЛАВНУЮ &cudarrr;</b>
 </a>
-<form method="POST" th:action="${buttonText == 'Сохранить' ? 'http://localhost:8080/blog_app_yandex_practicum_sprint_3_war/posts/add' : 'http://localhost:8080/blog_app_yandex_practicum_sprint_3_war/posts/update/' + post.id}" enctype="multipart/form-data" th:object="${post}">
+<form method="POST" th:action="${buttonText == 'Сохранить' ? 'http://localhost:8080/posts/add' : 'http://localhost:8080/posts/update/' + post.id}" enctype="multipart/form-data" th:object="${post}">
     <table style="width:50%;margin-left:auto;margin-right:auto;">
         <tr>
             <td>
