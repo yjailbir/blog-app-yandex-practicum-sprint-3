@@ -27,28 +27,26 @@ git clone https://github.com/yjailbir/blog-app-yandex-practicum-sprint-3.git
 - spring.datasource.password={пароль вашей базы данных}
 - values.img_folder={полный путь к папке, где будут храниться изображения, загруженные в блог}
 
-### 3. Сборка WAR-файла
+### 3. Сборка приложения в jar файл
 
-1. Установить [Apache Maven](https://maven.apache.org/download.cgi)
+В каталоге проекта выполнить команду 
 
-2. Выполнить в каталоге проекта команду
-```bash
-mvn clean package
+- Windows:
+```bash 
+gradlew.bat build
 ```
 
-В результате сборки будет создан файл:  
-`target/blog-app-yandex-practicum-sprint-3.war`
+- Linux:
+```bash 
+./gradlew build
+```
 
-### 4. Деплой на Tomcat
+После сборки в папке build/libs появится исполняемый файл blog-app-yandex-practicum-sprint-3-1.0.jar
 
-1. Установить [Apache Tomcat](https://tomcat.apache.org/download-10.cgi)
-2. Скопировать файл `blog-app-yandex-practicum-sprint-3.war` в директорию `webapps` Tomcat:
-3. Запустите сервер: bin/startup.sh на Linux системах или bin/startup.bat на Windows 
-4. Открыть в браузере домашнюю страницу блога:
-   ```
-   http://localhost:8080/blog_app_yandex_practicum_sprint_3_war/posts
-   ```
+### 3. Запуск приложения на встроенном сервере Tomcat
+В папке с собранным jar файлом выполнить команду: 
+```bash 
+java -jar blog-app-yandex-practicum-sprint-3-1.0.jar
+```
 
-### 5. Остановка сервера
-
-Для остановки приложения запустите bin/shutdown.sh на Linux системах или bin/shutdown.bat на Windows
+После этого приложение будет доступно по адресу http://localhost:8080/posts
