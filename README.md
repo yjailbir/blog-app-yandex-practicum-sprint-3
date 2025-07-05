@@ -43,7 +43,7 @@ gradlew.bat build
 
 После сборки в папке build/libs появится исполняемый файл blog-app-yandex-practicum-sprint-3-1.0.jar
 
-### 3. Запуск приложения на встроенном сервере Tomcat
+### 4. Запуск приложения на встроенном сервере Tomcat
 В папке с собранным jar файлом выполнить команду: 
 ```bash 
 java -jar blog-app-yandex-practicum-sprint-3-1.0.jar
